@@ -37,8 +37,6 @@ axios
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-//using my old TL's username for followers to get more than 3 more cards.
-
 /* STEP 3 ✅: Create a function that accepts a single object as its only argument.
 Using DOM methods and properties, create and return the following markup:
 <div class="card">
@@ -96,10 +94,8 @@ function cardMaker(gitData) {
   //returning the cardParent that contains all the data in the Card Marker function:
   return cardParent;
 }
-
-//cannot seem to solve this stretch with forEach.
 axios
-  .get("https://api.github.com/users/ViridityMoon/followers")
+  .get("https://api.github.com/users/devandapaige/followers")
   .then((data) => {
     let followersArray = data.data;
     console.log(followersArray);
