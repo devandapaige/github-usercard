@@ -37,8 +37,27 @@ axios
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-axios.get("https://")
-
+//using my old TL's username for followers to get more than 3 more cards.
+axios
+  .get("https://api.github.com/users/ViridityMoon/followers")
+  .then((data) => {
+    let login = data.login
+    login.forEach(data =>{
+      axios
+        .get(`https://api.github.com/users/${data}`)
+        .then((res) => {
+          const info = res.data;
+          const cardInfo = cardMaker(info);
+          cardsClass.appendChild(cardInfo);
+        })
+        .catch((err) => {
+          console.log("error within forEach", err);
+        });
+    })
+  .catch((err) => {
+    console.log("error with follower data", err);
+  })
+  };
 /* STEP 3 ✅: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
     <div class="card">
