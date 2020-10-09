@@ -3,12 +3,15 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from "axios";
+
+const cardsClass = document.querySelector(".cards");
 axios
   .get("https://api.github.com/users/devandapaige")
   .then((res) => {
-    const cardsClass = document.querySelector(".cards");
-    const newCard = cardMaker(res.data);
-    cardsClass.appendChild(newCard);
+    const info = res.data;
+    const cardInfo = cardMaker(info);
+    cardsClass.appendChild(cardInfo);
   })
   .catch((err) => {
     console.log("error", err);
@@ -34,10 +37,9 @@ axios
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-/*axios.get("http://api.github.com/users/devandapaige/followers");
-const followersArray = [];/*
-/*
-  STEP 3 ✅: Create a function that accepts a single object as its only argument.
+axios.get("https://")
+
+/* STEP 3 ✅: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
     <div class="card">
       <img src={image url of user} />
@@ -61,6 +63,7 @@ function cardMaker(gitData) {
   const textInfo = document.createElement("div");
   const username = document.createElement("p");
   const location = document.createElement("p");
+  const linkText = document.createElement("p");
   const profileLink = document.createElement("a");
   const followers = document.createElement("p");
   const following = document.createElement("p");
@@ -73,8 +76,9 @@ function cardMaker(gitData) {
   profilePic.src = `${gitData.avatar_url}`;
   username.textContent = `${gitData.login}`;
   location.textContent = `Location: ${gitData.location}`;
+  linkText.textContent = `Profile: `;
   profileLink.href = `${gitData.html_url}`;
-  profileLink.textContent = `Profile: ${gitData.html_url}`;
+  profileLink.textContent = `${gitData.html_url}`;
   followers.textContent = `Followers: ${gitData.followers}`;
   following.textContent = `Following: ${gitData.following}`;
   bio.textContent = `Bio: ${gitData.bio}`;
@@ -83,10 +87,12 @@ function cardMaker(gitData) {
   cardParent.appendChild(textInfo);
   textInfo.appendChild(username);
   textInfo.appendChild(location);
-  textInfo.appendChild(profileLink);
+  textInfo.appendChild(linkText);
+  //putting the profileLink inline with the p element for profile:
+  linkText.appendChild(profileLink);
   textInfo.appendChild(followers);
   textInfo.appendChild(following);
-  textInfo.appendchild(bio);
+  textInfo.appendChild(bio);
   //returning the cardParent that contains all the data in the Card Marker function:
   return cardParent;
 }
